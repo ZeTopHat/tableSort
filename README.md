@@ -1,6 +1,6 @@
 # tableSort
 
-Javascript to sort an html table. It allows for sorting and reverse sorting by clicking on the html headers.
+Javascript to sort an html table. It allows for sorting and reverse sorting by clicking on the html headers. Cookies included to keep sort selection across page refreshes.
 
 # How to Use
 
