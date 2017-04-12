@@ -27,7 +27,13 @@ function tableSort(column) {
       /*Get the two elements you want to compare,
       one from current row and one from the next*/
       x = rows[i].getElementsByTagName("TD")[column];
+      if (x == null){
+        x = document.createTextNode("0");
+      }
       y = rows[i + 1].getElementsByTagName("TD")[column];
+      if (y == null){
+        y = document.createTextNode("0");
+      }
       // If column content starts with digits sort numerically
 			if (/^\d/.test(parseFloat(x.textContent))){
         //check if the two rows should switch places
@@ -85,30 +91,32 @@ function readCookie(name){
 }
 
 document.addEventListener("page:change", function(){
-  // Use cookies to initially sort table
-  var columnCookie = readCookie("column");
-  var pcolumnCookie = readCookie("pcolumn");
-  pcolumn = pcolumnCookie;
-  // change the cookie string back into a boolean
-	var toggleCookie = readCookie("toggleOn");
-  if (toggleCookie == "false"){ 
-    toggleOn = false;
-  } else {
-    toggleOn = true;
-	}
-  tableSort(columnCookie);
+	if($('#index').length){
+  	// Use cookies to initially sort table
+  	var columnCookie = readCookie("column");
+  	var pcolumnCookie = readCookie("pcolumn");
+  	pcolumn = pcolumnCookie;
+  	// change the cookie string back into a boolean
+		var toggleCookie = readCookie("toggleOn");
+  	if (toggleCookie == "false"){ 
+    	toggleOn = false;
+  	} else {
+    	toggleOn = true;
+		}
+  	tableSort(columnCookie);
 
-  $(".thsortable").click( function(){
-    column = $(this).index();
-		// set cookie for column
-		document.cookie = "column=" + column;
-		// toggle sorting on click
-    toggleOn = !toggleOn;
-		// set toggle cookie
-	  document.cookie = "toggleOn=" + toggleOn;
-    tableSort(column);
-		// After sorting set previous column
-    pcolumn = column;
-  });
+  	$(".thsortable").click( function(){
+    	column = $(this).index();
+			// set cookie for column
+			document.cookie = "column=" + column;
+			// toggle sorting on click
+    	toggleOn = !toggleOn;
+			// set toggle cookie
+	  	document.cookie = "toggleOn=" + toggleOn;
+    	tableSort(column);
+			// After sorting set previous column
+    	pcolumn = column;
+  	});
+	}
 });
 
